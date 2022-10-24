@@ -396,16 +396,16 @@
     (spit (str path "/view.clj") (build-skeleton-view options))))
 
 (comment
-  (build-grid-skeleton {:folder "jugadores"
-                        :title "Jugadores"
-                        :table "jugadores"
-                        :args "{:sort-extra \"nombre,paterno,materno\"}"
+  (build-grid-skeleton {:folder "historial"
+                        :title "Historial"
+                        :table "historial"
+                        :args "{:sort-extra \"id\"}"
                         :secure 1
-                        :link "/admin/jugadores"
+                        :link "/admin/historial"
                         :root "src/sk/handlers/admin/"})
-  (build-skeleton {:folder "jugadores"
-                   :title "Jugadores"
-                   :table "jugadores"
+  (build-skeleton {:folder "juegos"
+                   :title "Juegos"
+                   :table "juegos"
                    :secure 3
-                   :link "/jugadores"
+                   :link "/juegos"
                    :root "src/sk/handlers/"}))

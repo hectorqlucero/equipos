@@ -1,27 +1,27 @@
 (ns sk.handlers.equipos.model
   (:require [sk.models.crud :refer [Query db]]))
 
-(def get-rows-sql
+(defn get-equipos-sql [tabla]
   (str
    "
     SELECT
-    e.nombre,
-    e.fundado,
-    DATE_FORMAT(e.fundado,'%m/%d/%Y') as fundado_formatted,
-    e.ciudad,
-    e.entrenador_id,
-    CONCAT(n.nombre,' ',n.paterno,' ',n.materno) as entrenador,
-    e.manager,
-    e.estadios_id,
-    s.nombre as estadio
-    FROM equipos e
-    LEFT JOIN entrenadores n ON n.id = e.entrenador_id
-    LEFT JOIN estadios s on s.id = e.estadios_id
-    ORDER BY e.nombre
+    equipos.nombre,
+    equipos.fundado,
+    DATE_FORMAT(equipos.fundado,'%m/%d/%Y') as fundado_formatted,
+    equipos.ciudad,
+    equipos.entrenador_id,
+    CONCAT(entrenadores.nombre,' ',entrenadores.paterno,' ',entrenadores.materno) as entrenador,
+    equipos.manager,
+    equipos.estadio_id,
+    estadios.nombre as estadio
+    FROM " tabla "
+    LEFT JOIN entrenadores ON entrenadores.id = equipos.entrenador_id
+    LEFT JOIN estadios ON estadios.id = equipos.estadio_id
+    ORDER BY nombre
     "))
 
 (defn get-rows [tabla]
-  (Query db [get-rows-sql]))
+  (Query db [(get-equipos-sql tabla)]))
 
 (comment
   (get-rows "equipos"))

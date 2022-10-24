@@ -1,1 +1,1 @@
-DELETE TABLE estadios;
+DROP TABLE estadios;

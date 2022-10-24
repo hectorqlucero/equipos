@@ -1,0 +1,4 @@
+CREATE TABLE temporadas (
+  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `nombre` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

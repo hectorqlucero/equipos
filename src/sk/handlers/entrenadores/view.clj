@@ -13,6 +13,10 @@
     [:table.dg {:data-options "remoteSort:false,fit:true,rownumbers:true,fitColumns:true" :title title}
      [:thead
       [:tr
+       [:th {:colspan 2} [:a {:href "/entrenadores/csv"} "Exportar a hoja electronica"]]
+       [:th [:a {:href "/entrenadores/pdf"} "Reporte PDF"]]
+       [:th [:a {:href "/entrenadores/html"} "Reporte HTML"]]]
+      [:tr
        [:th {:data-options "field:'nombre',sortable:true,width:100"} "NOMBRE"]
        [:th {:data-options "field:'paterno',sortable:true,width:100"} "PATERNO"]
        [:th {:data-options "field:'materno',sortable:true,width:100"} "MATERNO"]
@@ -22,9 +26,9 @@
 (defn entrenadores-scripts []
   [:script
    "
-     var dg = $('.dg');
-     $(document).ready(function() {
-      dg.datagrid();
-      dg.datagrid('enableFilter');
-     });
-     "])
+   var dg = $('.dg');
+   $(document).ready(function() {
+   dg.datagrid();
+   dg.datagrid('enableFilter');
+   });
+   "])

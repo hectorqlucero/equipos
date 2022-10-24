@@ -4,6 +4,19 @@
             [sk.models.util :refer [user-level user-name]]
             [sk.migrations :refer [config]]))
 
+(defn build-reportes []
+  (list
+   [:a.dropdown-item {:href "/entrenadores/csv"} "Entrenadores (csv)"]
+   [:a.dropdown-item {:href "/entrenadores/pdf"} "Entrenadores (pdf)"]
+   [:a.dropdown-item {:href "/entrenadores/html"} "Entrenadores (html)"]
+   (when (or
+          (= (user-level) "A")
+          (= (user-level) "S"))
+     (list
+      nil))
+   (when (= (user-level) "S")
+     nil)))
+
 (defn build-admin []
   (list
    (when (or
@@ -13,7 +26,10 @@
       [:a.dropdown-item {:href "/admin/entrenadores"} "Entrenadores"]
       [:a.dropdown-item {:href "/admin/estadios"} "Estadios"]
       [:a.dropdown-item {:href "/admin/equipos"} "Equipos"]
-      [:a.dropdown-item {:href "/admin/jugadores"} "Jugadores"]))
+      [:a.dropdown-item {:href "/admin/posiciones"} "Posiciones"]
+      [:a.dropdown-item {:href "/admin/jugadores"} "Jugadores"]
+      [:a.dropdown-item {:href "/admin/temporadas"} "Temporadas"]
+      [:a.dropdown-item {:href "/admin/juegos"} "Juegos"]))
    (when (= (user-level) "S")
      [:a.dropdown-item {:href "/admin/users"} "Usuarios"])))
 
@@ -34,6 +50,18 @@
       [:li.nav-item [:a.nav-link {:href "/estadios"} "Estadios"]]
       [:li.nav-item [:a.nav-link {:href "/equipos"} "Equipos"]]
       [:li.nav-item [:a.nav-link {:href "/jugadores"} "Jugadores"]]
+      [:li.nav-item [:a.nav-link {:href "/juegos"} "Juegos"]]
+      (when
+       (or
+        (= (user-level) "U")
+        (= (user-level) "A")
+        (= (user-level) "S"))
+        [:li.nav-item.dropdown
+         [:a.nav-link.dropdown-toggle {:href "#"
+                                       :id "navdrop"
+                                       :data-toggle "dropdown"} "Reportes"]
+         [:div.dropdown-menu
+          (build-reportes)]])
       (when
        (or
         (= (user-level) "U")

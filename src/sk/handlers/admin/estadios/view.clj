@@ -24,17 +24,17 @@
     {:id "que_grande"
      :name "que_grande"
      :class "easyui-textbox"
-     :prompt "Que tan grande esta?"
-     :data-options "label:'Grande:',
+     :prompt "Que tan grande es ej. chico, mediano, grande"
+     :data-options "label:'Tamaño:',
         labelPosition:'top',
-        required:true,
+        required:false,
         width:'100%'"})
    (build-field
     {:id "donde_esta"
      :name "donde_esta"
      :class "easyui-textbox"
      :prompt "Donde esta el estadio..."
-     :data-options "label:'Donde Esta:',
+     :data-options "label:'Localizacion:',
         labelPosition:'top',
         required:true,
         width:'100%'"})))
@@ -47,8 +47,8 @@
     "/admin/estadios"
     (list
      [:th {:data-options "field:'nombre',sortable:true,width:100"} "NOMBRE"]
-     [:th {:data-options "field:'que_grande',sortable:true,width:100"} "QUE_GRANDE"]
-     [:th {:data-options "field:'donde_esta',sortable:true,width:100"} "DONDE_ESTA"]))
+     [:th {:data-options "field:'que_grande',sortable:true,width:100"} "TAMAÑO"]
+     [:th {:data-options "field:'donde_esta',sortable:true,width:100"} "LOCALIZACIÓN"]))
    (build-toolbar)
    (build-dialog title (dialog-fields))
    (build-dialog-buttons)))

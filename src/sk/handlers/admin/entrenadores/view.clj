@@ -43,9 +43,9 @@
      :name "empezo"
      :class "easyui-datebox"
      :prompt "mm/dd/aaaa ex. 02/07/1957 es: Febreo 2 de 1957"
-     :data-options "label:'Empezo:',
+     :data-options "label:'Fecha de Inicio:',
         labelPosition:'top',
-        required:true,
+        required:false,
         width:'100%'"})))
 
 (defn entrenadores-view [title]
@@ -56,9 +56,9 @@
     "/admin/entrenadores"
     (list
      [:th {:data-options "field:'nombre',sortable:true,width:100"} "NOMBRE"]
-     [:th {:data-options "field:'paterno',sortable:true,width:100"} "PATERNO"]
-     [:th {:data-options "field:'materno',sortable:true,width:100"} "MATERNO"]
-     [:th {:data-options "field:'empezo_formatted',sortable:true,width:100"} "EMPEZO"]))
+     [:th {:data-options "field:'paterno',sortable:true,width:100"} "APELLIDO PATERNO"]
+     [:th {:data-options "field:'materno',sortable:true,width:100"} "APELLIDO MATERNO"]
+     [:th {:data-options "field:'empezo_formatted',sortable:true,width:100"} "INICIO"]))
    (build-toolbar)
    (build-dialog title (dialog-fields))
    (build-dialog-buttons)))

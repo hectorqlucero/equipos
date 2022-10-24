@@ -22,6 +22,9 @@
   (GET "/table_ref/get-estadios" [] (generate-string (table_ref/get-estadios)))
   (GET "/table_ref/get-entrenador/:id" [id] (table_ref/get-entrenador-nombre id))
   (GET "/table_ref/get-equipos" [] (generate-string (table_ref/get-equipos)))
+  (GET "/table_ref/get-posiciones" [] (generate-string (table_ref/get-posiciones)))
+  (GET "/table_ref/get-temporadas" [] (generate-string (table_ref/get-temporadas)))
+  (GET "/table_ref/get-juegos" [] (generate-string (table_ref/get-juegos)))
   ;; End table_ref
 
   ;; Start home

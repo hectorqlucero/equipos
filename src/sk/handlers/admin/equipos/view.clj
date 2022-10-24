@@ -24,16 +24,16 @@
     {:id "fundado"
      :name "fundado"
      :class "easyui-datebox"
-     :prompt "fecha en que se fundo - mm/dd/aaaa ex. 02/07/1957 es: Febreo 2 de 1957"
+     :prompt "mm/dd/aaaa ex. 02/07/1957 es: Febreo 2 de 1957"
      :data-options "label:'Fundado:',
         labelPosition:'top',
-        required:true,
+        required:false,
         width:'100%'"})
    (build-field
     {:id "ciudad"
      :name "ciudad"
      :class "easyui-textbox"
-     :prompt "De que ciudad es el equipo..."
+     :prompt "Ciudad del equipo..."
      :data-options "label:'Ciudad:',
         labelPosition:'top',
         required:true,
@@ -42,7 +42,7 @@
     {:id "entrenador_id"
      :name "entrenador_id"
      :class "easyui-combobox"
-     :prompt "Entrenador del equipo..."
+     :prompt "Entrenador del equipo"
      :data-options "label:'Entrenador:',
         labelPosition:'top',
         url:'/table_ref/get-entrenadores',
@@ -59,8 +59,8 @@
         required:true,
         width:'100%'"})
    (build-field
-    {:id "estadios_id"
-     :name "estadios_id"
+    {:id "estadio_id"
+     :name "estadio_id"
      :class "easyui-combobox"
      :prompt "Estadio del equipo..."
      :data-options "label:'Estadio:',
@@ -83,7 +83,7 @@
      [:th {:data-options "field:'entrenador_id',sortable:true,width:100"
            :formatter "get_entrenador"} "ENTRENADOR"]
      [:th {:data-options "field:'manager',sortable:true,width:100"} "MANAGER"]
-     [:th {:data-options "field:'estadios_id',sortable:true,width:100"
+     [:th {:data-options "field:'estadio_id',sortable:true,width:100"
            :formatter "get_estadio"} "ESTADIO"]))
    (build-toolbar)
    (build-dialog title (dialog-fields))
@@ -94,36 +94,33 @@
    (include-js "/js/grid.js")
    [:script
     "
-   function get_entrenador(val, row, index) {
-    var result = null;
-    var scriptUrl = '/table_ref/get-entrenador/' + val;
-    $.ajax({
-      url: scriptUrl,
-      type: 'get',
-      dataType: 'html',
-      async: false,
-      success: function(data) {
-        result = data;
-      }
-    });
-    return result;
-   }
+    function get_entrenador(val,row,index) {
+      var result = null;
+      var scriptUrl = '/table_ref/get-entrenador/' + val;
+      $.ajax({
+        url: scriptUrl,
+        type: 'get',
+        dataType: 'html',
+        async: false,
+        success: function(data) {
+          result = data;
+        }
+      });
+      return result
+    }
 
-   function get_estadio(val, row, index) {
-    var result = null;
-    var scriptUrl = '/table_ref/get-item/estadios/nombre/id/' + val;
-    $.ajax({
-      url: scriptUrl,
-      type: 'get',
-      dataType: 'html',
-      async: false,
-      success: function(data) {
-        result = data;
-      }
-    });
-    return result;
-   }
-   "]))
-
-(comment
-  (equipos-view "Equipos"))
+    function get_estadio(val,row,index) {
+      var result = null;
+      var scriptUrl = '/table_ref/get-item/estadios/nombre/id/' + val;
+      $.ajax({
+        url: scriptUrl,
+        type: 'get',
+        dataType: 'html',
+        async: false,
+        success: function(data) {
+          result = data;
+        }
+      });
+      return result;
+    }
+     "]))

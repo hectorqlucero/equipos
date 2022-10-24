@@ -1,15 +1,15 @@
-(ns sk.handlers.admin.estadios.handler
+(ns sk.handlers.admin.posiciones.handler
   (:require [sk.models.crud :refer [build-form-row build-form-save build-form-delete]]
             [sk.models.grid :refer [build-grid]]
             [sk.layout :refer [application]]
             [sk.models.util :refer [get-session-id user-level]]
-            [sk.handlers.admin.estadios.view :refer [estadios-view estadios-scripts]]))
+            [sk.handlers.admin.posiciones.view :refer [posiciones-view posiciones-scripts]]))
 
-(defn estadios [_]
-  (let [title "Estadios"
+(defn posiciones [_]
+  (let [title "Posiciones de jugadores"
         ok (get-session-id)
-        js (estadios-scripts)
-        content (estadios-view title)]
+        js (posiciones-scripts)
+        content (posiciones-view title)]
     (if
      (or
       (= (user-level) "A")
@@ -17,21 +17,21 @@
       (application title ok js content)
       (application title ok nil "solo <strong>los administradores </strong> pueden accessar esta opción!!!"))))
 
-(defn estadios-grid
+(defn posiciones-grid
   "builds grid. parameters: params table & args args: {:join 'other-table' :search-extra name='pedro' :sort-extra 'name,lastname'}"
   [{params :params}]
-  (let [table "estadios"
-        args {:sort-extra "nombre,donde_esta"}]
+  (let [table "posiciones"
+        args {:sort-extra "nombre"}]
     (build-grid params table args)))
 
-(defn estadios-form [id]
-  (let [table "estadios"]
+(defn posiciones-form [id]
+  (let [table "posiciones"]
     (build-form-row table id)))
 
-(defn estadios-save [{params :params}]
-  (let [table "estadios"]
+(defn posiciones-save [{params :params}]
+  (let [table "posiciones"]
     (build-form-save params table)))
 
-(defn estadios-delete [{params :params}]
-  (let [table "estadios"]
+(defn posiciones-delete [{params :params}]
+  (let [table "posiciones"]
     (build-form-delete params table)))

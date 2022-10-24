@@ -15,12 +15,16 @@
     [:table.dg {:data-options "remoteSort:false,fit:true,rownumbers:true,fitColumns:true" :title title}
      [:thead
       [:tr
+       [:th {:colspan 2} [:a {:href "/equipos/csv"} "Exportar a hoja electronica"]]
+       [:th {:colspan 2} [:a {:href "/equipos/pdf"} "Reporte PDF"]]
+       [:th {:colspan 2} [:a {:href "/equipos/html"} "Reporte HTML"]]]
+      [:tr
        [:th {:data-options "field:'nombre',sortable:true,width:100"} "NOMBRE"]
        [:th {:data-options "field:'fundado_formatted',sortable:true,width:100"} "FUNDADO"]
        [:th {:data-options "field:'ciudad',sortable:true,width:100"} "CIUDAD"]
-       [:th {:data-options "field:'entrenador_id',sortable:true,width:100"} "ENTRENADOR_ID"]
+       [:th {:data-options "field:'entrenador',sortable:true,width:100"} "ENTRENADOR"]
        [:th {:data-options "field:'manager',sortable:true,width:100"} "MANAGER"]
-       [:th {:data-options "field:'estadios_id',sortable:true,width:100"} "ESTADIOS_ID"]]]
+       [:th {:data-options "field:'estadio',sortable:true,width:100"} "ESTADIO"]]]
      [:tbody (map my-body rows)]]))
 
 (defn equipos-scripts []

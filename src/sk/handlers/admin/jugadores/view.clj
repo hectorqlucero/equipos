@@ -42,20 +42,22 @@
     {:id "equipos_id"
      :name "equipos_id"
      :class "easyui-combobox"
-     :prompt "Equipo al que pertenece el jugador..."
+     :prompt "Equipo del jugador..."
      :data-options "label:'Equipo:',
-        labelPosition:'top',
-        url:'/table_ref/get-equipos',
-        method:'GET',
-        required:true,
-        width:'100%'"})
+                 labelPosition:'top',
+                 url:'/table_ref/get-equipos',
+                 method:'GET',
+                 required:true,
+                 width:'100%'"})
    (build-field
-    {:id "posicion"
-     :name "posicion"
-     :class "easyui-textbox"
-     :prompt "Posicion en la que juega..."
+    {:id "posiciones_id"
+     :name "posiciones_id"
+     :class "easyui-combobox"
+     :prompt "Posicion del jugador..."
      :data-options "label:'Posicion:',
         labelPosition:'top',
+        url: '/table_ref/get-posiciones',
+        method:'GET',
         required:true,
         width:'100%'"})
    (build-field
@@ -75,60 +77,6 @@
      :data-options "label:'Peso:',
         labelPosition:'top',
         required:false,
-        width:'100%'"})
-   (build-field
-    {:id "p_puntos"
-     :name "p_puntos"
-     :class "easyui-textbox"
-     :prompt "Promedio de puntos del jugador..."
-     :data-options "label:'Promedio de puntos:',
-        labelPosition:'top',
-        required:false,
-        width:'100%'"})
-   (build-field
-    {:id "p_assistencias"
-     :name "p_assistencias"
-     :class "easyui-textbox"
-     :prompt "Promedio de asistencias del jugador..."
-     :data-options "label:'Promedio de asistencias:',
-        labelPosition:'top',
-        required:false,
-        width:'100%'"})
-   (build-field
-    {:id "p_bloqueos"
-     :name "p_bloqueos"
-     :class "easyui-textbox"
-     :prompt "Promedio de bloqueos del jugador..."
-     :data-options "label:'Promedio de bloqueos:',
-        labelPosition:'top',
-        required:false,
-        width:'100%'"})
-   (build-field
-    {:id "p_robos"
-     :name "p_robos"
-     :class "easyui-textbox"
-     :prompt "Promedio de robos del jugador..."
-     :data-options "label:'Promedio de robos:',
-        labelPosition:'top',
-        required:false,
-        width:'100%'"})
-   (build-field
-    {:id "pe_2puntos"
-     :name "pe_2puntos"
-     :class "easyui-textbox"
-     :prompt "Porcentage de 2 puntos del jugador..."
-     :data-options "label:'Porcentage 2puntos:',
-        labelPosition:'top',
-        required:false,
-        width:'100%'"})
-   (build-field
-    {:id "pe_3puntos"
-     :name "pe_3puntos"
-     :class "easyui-textbox"
-     :prompt "Porcentage de 3puntos del jugador..."
-     :data-options "label:'Porcentage 3puntos:',
-        labelPosition:'top',
-        required:false,
         width:'100%'"})))
 
 (defn jugadores-view [title]
@@ -143,15 +91,8 @@
      [:th {:data-options "field:'materno',sortable:true,width:100"} "MATERNO"]
      [:th {:data-options "field:'equipos_id',sortable:true,width:100"
            :formatter "get_equipo"} "EQUIPO"]
-     [:th {:data-options "field:'posicion',sortable:true,width:100"} "POSICION"]
-     [:th {:data-options "field:'altura',sortable:true,width:100"} "ALTURA"]
-     [:th {:data-options "field:'peso',sortable:true,width:100"} "PESO"]
-     [:th {:data-options "field:'p_puntos',sortable:true,width:100"} "P PUNTOS"]
-     [:th {:data-options "field:'p_assistencias',sortable:true,width:100"} "P ASSISTENCIAS"]
-     [:th {:data-options "field:'p_bloqueos',sortable:true,width:100"} "P BLOQUEOS"]
-     [:th {:data-options "field:'p_robos',sortable:true,width:100"} "P ROBOS"]
-     [:th {:data-options "field:'pe_2puntos',sortable:true,width:100"} "% 2PUNTOS"]
-     [:th {:data-options "field:'pe_3puntos',sortable:true,width:100"} "% 3PUNTOS"]))
+     [:th {:data-options "field:'posicion_id',sortable:true,width:100"
+           :formatter "get_posicion"} "POSICION"]))
    (build-toolbar)
    (build-dialog title (dialog-fields))
    (build-dialog-buttons)))
@@ -161,15 +102,30 @@
    (include-js "/js/grid.js")
    [:script
     "
-   function get_equipo(val, row, index) {
+   function get_equipo(val,row,index) {
     var result = null;
     var scriptUrl = '/table_ref/get-item/equipos/nombre/id/' + val;
     $.ajax({
-      url: scriptUrl,
-      type: 'get',
-      dataType: 'html',
-      async: false,
-      success: function(data) {
+      url:scriptUrl,
+      type:'get',
+      dataType:'html',
+      async:false,
+      success:function(data) {
+        result = data;
+      }
+    });
+    return result;
+   }
+
+   function get_posicion(val,row,index) {
+    var result = null;
+    var scriptUrl = '/table_ref/get-item/posiciones/nombre/id/' + val;
+    $.ajax({
+      url:scriptUrl,
+      type:'get',
+      dataType:'html',
+      async:false,
+      success:function(data) {
         result = data;
       }
     });
