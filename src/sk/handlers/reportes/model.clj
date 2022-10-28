@@ -1,9 +1,8 @@
 (ns sk.handlers.reportes.model
   (:require [sk.models.crud :refer [Query db]]))
 
-(defn get-rows []
-  (let [rows (Query db "SELECT * FROM historial")]
-    rows))
+(defn get-rows [tabla]
+  (Query db [(str "SELECT * FROM " tabla)]))
 
 ;; Start Crossjoin to calculate percentage
 (def p-sql
@@ -76,7 +75,7 @@
 ;; End promedio puntos por jugador
 
 (comment
-  (get-rows)
+  (get-rows "historial")
   (totales-historial)
   (jugador-totales-historial 11)
   (jugador-promedios-historial 11))
