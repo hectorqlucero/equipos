@@ -12,9 +12,13 @@
             [sk.handlers.admin.posiciones.handler :as posiciones]
             [sk.handlers.admin.juegos.handler :as juegos]
             [sk.handlers.admin.temporadas.handler :as temporadas]
-            [sk.handlers.juegos.handler :as juegos-r]))
+            [sk.handlers.juegos.handler :as juegos-r]
+            [sk.handlers.reportes.handler :as reportes]))
 
 (defroutes proutes
+  ;; Start reportes
+  (GET "/totales/historicos" req [] (reportes/totales-historial req))
+  ;; End reportes
   ;; Start users
   (GET "/admin/users"  req [] (users/users req))
   (POST "/admin/users" req [] (users/users-grid req))

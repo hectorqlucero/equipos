@@ -11,7 +11,7 @@
     from " tabla " j
     LEFT JOIN equipos e ON e.id = j.equipos_id
     LEFT JOIN posiciones p ON p.id = j.posiciones_id
-    ORDER BY j.nombre,j.paterno,j.materno
+    ORDER BY j.equipos_id,j.nombre,j.paterno,j.materno
     "))
 
 (defn get-rows [tabla]

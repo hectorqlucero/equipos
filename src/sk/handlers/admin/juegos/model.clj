@@ -47,21 +47,7 @@
     (first row)))
 ;; End historial
 
-;; Start Crossjoin to calculate percentage
-(def p-sql
-  "
-  SELECT
-  p_puntos,
-  p_puntos * 100 / t.s AS `percent of total`
-  FROM historial
-  CROSS JOIN (SELECT SUM(p_puntos) AS s FROM historial) t
-  WHERE jugadores_id = 8;
-  ")
-;; End Crossjoin to calculate percentage
 (comment
-  (Query db "select SUM(p_puntos) as total from historial")
-  (Query db p-sql)
-  (Query db "select AVG(p_puntos) as promedio_puntos FROM historial where jugadores_id = 8")
   (historial 8 4 1)
   (equipo-nombre 4)
   (get-jugadores-por-equipo 4 1)

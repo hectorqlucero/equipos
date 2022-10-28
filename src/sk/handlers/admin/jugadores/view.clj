@@ -91,7 +91,7 @@
      [:th {:data-options "field:'materno',sortable:true,width:100"} "MATERNO"]
      [:th {:data-options "field:'equipos_id',sortable:true,width:100"
            :formatter "get_equipo"} "EQUIPO"]
-     [:th {:data-options "field:'posicion_id',sortable:true,width:100"
+     [:th {:data-options "field:'posiciones_id',sortable:true,width:100"
            :formatter "get_posicion"} "POSICION"]))
    (build-toolbar)
    (build-dialog title (dialog-fields))

@@ -21,7 +21,7 @@
   "builds grid. parameters: params table & args args: {:join 'other-table' :search-extra name='pedro' :sort-extra 'name,lastname'}"
   [{params :params}]
   (let [table "jugadores"
-        args {:sort-extra "nombre,paterno,materno"}]
+        args {:sort-extra "equipos_id,nombre,paterno,materno"}]
     (build-grid params table args)))
 
 (defn jugadores-form [id]

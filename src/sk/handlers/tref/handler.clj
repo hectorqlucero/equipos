@@ -154,7 +154,7 @@
   "
   SELECT
   id AS value,
-  CONCAT(nombre,' ',paterno,' ',materno) AS text
+  RTRIM(CONCAT(COALESCE(nombre,''),' ',COALESCE(paterno,''),' ',COALESCE(materno,''))) AS text
   FROM entrenadores
   ORDER BY nombre,paterno,materno
   ")
@@ -185,7 +185,7 @@
 (def get-entrenador-nombre-sql
   "
   SELECT
-  CONCAT(nombre,' ',paterno,' ',materno) as nombre
+  RTRIM(CONCAT(COALESCE(nombre,''),' ',COALESCE(paterno,''),' ',COALESCE(materno,''))) as nombre
   FROM entrenadores
   WHERE id = ?
   ")

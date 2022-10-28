@@ -6,9 +6,7 @@
 
 (defn build-reportes []
   (list
-   [:a.dropdown-item {:href "/entrenadores/csv"} "Entrenadores (csv)"]
-   [:a.dropdown-item {:href "/entrenadores/pdf"} "Entrenadores (pdf)"]
-   [:a.dropdown-item {:href "/entrenadores/html"} "Entrenadores (html)"]
+   [:a.dropdown-item {:href "/totales/historicos"} "Totales Historicos"]
    (when (or
           (= (user-level) "A")
           (= (user-level) "S"))
