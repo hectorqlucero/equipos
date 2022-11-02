@@ -128,7 +128,58 @@
     row))
 ;; End min puntos generales
 
+;; Start totales equipos
+(def totales-equipos-sql
+  "
+  SELECT
+  equipos.id,
+  equipos.nombre as equipo,
+  CAST(SUM(p_puntos) as UNSIGNED) as puntos,
+  CAST(SUM(p_asistencias) as UNSIGNED) as asistencias,
+  CAST(SUM(p_bloqueos) as UNSIGNED) as bloqueos,
+  CAST(SUM(p_robos) as UNSIGNED) as robos,
+  CAST(SUM(pe_2puntos) as UNSIGNED) as 2puntos,
+  CAST(SUM(pe_3puntos) as UNSIGNED) as 3puntos
+  FROM historial
+  JOIN equipos on equipos.id = historial.equipos_id
+  GROUP BY historial.equipos_id
+  ORDER BY equipos.nombre
+  ")
+
+(defn totales-equipos []
+  (let [rows (Query db totales-equipos-sql)]
+    rows))
+;; End totales equipos
+
+;; Start totales jugadores
+(def totales-jugadores-sql
+  "
+  SELECT
+  historial.equipos_id,
+  equipos.nombre as equipo,
+  CONCAT(COALESCE(jugadores.nombre,''),' ',COALESCE(jugadores.paterno,''),' ',COALESCE(jugadores.materno,'')) as jugador,
+  CAST(SUM(historial.p_puntos) as UNSIGNED) as puntos,
+  CAST(SUM(historial.p_asistencias) as UNSIGNED) as asistencias,
+  CAST(SUM(historial.p_bloqueos) as UNSIGNED) as bloqueos,
+  CAST(SUM(historial.p_robos) as UNSIGNED) as robos,
+  CAST(SUM(historial.pe_2puntos) as UNSIGNED) as 2puntos,
+  CAST(SUM(historial.pe_3puntos) as UNSIGNED) as 3puntos
+  FROM historial
+  JOIN equipos on equipos.id = historial.equipos_id
+  JOIN jugadores on jugadores.id = historial.jugadores_id
+  WHERE historial.equipos_id = ?
+  GROUP BY historial.equipos_id,historial.jugadores_id
+  ORDER BY jugadores.nombre
+  ")
+
+(defn totales-jugadores [equipos-id]
+  (let [rows (Query db [totales-jugadores-sql equipos-id])]
+    rows))
+;; End totales jugadores
+
 (comment
+  (totales-jugadores 2)
+  (totales-equipos)
   (min-historial)
   (max-historial)
   (promedios-historial)

@@ -7,6 +7,7 @@
 (defn build-reportes []
   (list
    [:a.dropdown-item {:href "/totales/historicos"} "Totales Historicos"]
+   [:a.dropdown-item {:href "/promedios/historicos"} "Promedios Historicos"]
    [:a.dropdown-item {:href "/max/historicos"} "Max/Min Historicos"]
    (when (or
           (= (user-level) "A")

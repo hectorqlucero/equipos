@@ -18,6 +18,7 @@
 (defroutes proutes
   ;; Start reportes
   (GET "/totales/historicos" req [] (reportes/totales-historial req))
+  (GET "/promedios/historicos" req [] (reportes/promedios-historial req))
   (GET "/max/historicos" req [] (reportes/max-historial req))
   ;; End reportes
   ;; Start users

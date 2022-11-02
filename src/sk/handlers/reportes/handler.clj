@@ -1,16 +1,22 @@
 (ns sk.handlers.reportes.handler
   (:require
-   [sk.handlers.reportes.view :refer [totales-view max-view]]
+   [sk.handlers.reportes.view :refer [totales-view promedios-view max-view]]
    [sk.layout :refer [application]]
    [sk.models.util :refer [get-session-id]]))
 
 (defn totales-historial [_]
-  (let [totales-title "Totales Historicos"
-        promedios-title "Promedios Historicos"
+  (let [title "Totales Historicos"
         ok (get-session-id)
         js nil
-        content (totales-view totales-title promedios-title)]
-    (application totales-title ok js content)))
+        content (totales-view title)]
+    (application title ok js content)))
+
+(defn promedios-historial [_]
+  (let [title "Promedios Historicos"
+        ok (get-session-id)
+        js nil
+        content (promedios-view title)]
+    (application title ok js content)))
 
 (defn max-historial [_]
   (let [max-title "Maximos Historicos"
