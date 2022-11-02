@@ -177,7 +177,58 @@
     rows))
 ;; End totales jugadores
 
+;; Start promedios equipos
+(def promedios-equipos-sql
+  "
+  SELECT
+  equipos.id,
+  equipos.nombre as equipo,
+  CAST(AVG(p_puntos) as UNSIGNED) as puntos,
+  CAST(AVG(p_asistencias) as UNSIGNED) as asistencias,
+  CAST(AVG(p_bloqueos) as UNSIGNED) as bloqueos,
+  CAST(AVG(p_robos) as UNSIGNED) as robos,
+  CAST(AVG(pe_2puntos) as UNSIGNED) as 2puntos,
+  CAST(AVG(pe_3puntos) as UNSIGNED) as 3puntos
+  FROM historial
+  JOIN equipos on equipos.id = historial.equipos_id
+  GROUP BY historial.equipos_id
+  ORDER BY equipos.nombre
+  ")
+
+(defn promedios-equipos []
+  (let [rows (Query db promedios-equipos-sql)]
+    rows))
+;; End promedios equipos
+
+;; Start promedios jugadores
+(def promedios-jugadores-sql
+  "
+  SELECT
+  historial.equipos_id,
+  equipos.nombre as equipo,
+  CONCAT(COALESCE(jugadores.nombre,''),' ',COALESCE(jugadores.paterno,''),' ',COALESCE(jugadores.materno,'')) as jugador,
+  CAST(AVG(historial.p_puntos) as UNSIGNED) as puntos,
+  CAST(AVG(historial.p_asistencias) as UNSIGNED) as asistencias,
+  CAST(AVG(historial.p_bloqueos) as UNSIGNED) as bloqueos,
+  CAST(AVG(historial.p_robos) as UNSIGNED) as robos,
+  CAST(AVG(historial.pe_2puntos) as UNSIGNED) as 2puntos,
+  CAST(AVG(historial.pe_3puntos) as UNSIGNED) as 3puntos
+  FROM historial
+  JOIN equipos on equipos.id = historial.equipos_id
+  JOIN jugadores on jugadores.id = historial.jugadores_id
+  WHERE historial.equipos_id = ?
+  GROUP BY historial.equipos_id,historial.jugadores_id
+  ORDER BY jugadores.nombre
+  ")
+
+(defn promedios-jugadores [equipos-id]
+  (let [rows (Query db [promedios-jugadores-sql equipos-id])]
+    rows))
+;; End promedios jugadores
+
 (comment
+  (promedios-jugadores 2)
+  (promedios-equipos)
   (totales-jugadores 2)
   (totales-equipos)
   (min-historial)
